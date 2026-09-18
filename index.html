@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بطاقات تهنئة اليوم الوطني السعودي 96</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800;900&family=Amiri:ital,wght@0,700;1,700&display=swap');
+
+    :root {
+      --primary-green: #0b4f3a;
+      --secondary-green: #146b4f;
+      --accent-gold: #c5a059;
+      --light-gold: #e6ca85;
+      --highlight-red: #d92525;
+      --bg-color: #f4f7f5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Cairo', Tahoma, sans-serif;
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .header-bar {
+      width: 100%;
+      background: linear-gradient(135deg, #073829 0%, var(--primary-green) 50%, #0d5c44 100%);
+      color: white;
+      text-align: center;
+      padding: 18px 0;
+      font-size: 22px;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-bottom: 3px solid var(--accent-gold);
+    }
+
+    .card-container {
+      background: #ffffff;
+      padding: 35px 30px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 450px;
+      margin-top: 40px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      text-align: center;
+      border: 2px solid var(--accent-gold);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-container::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary-green), var(--accent-gold), var(--primary-green));
+    }
+
+    h3 {
+      color: var(--primary-green);
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-green);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      border: 1.5px solid #dcdcdc;
+      border-radius: 10px;
+      font-size: 16px;
+      text-align: center;
+      font-family: 'Cairo', sans-serif;
+      transition: all 0.3s ease;
+      background-color: #fafafa;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(11, 79, 58, 0.15);
+      background-color: #fff;
+    }
+
+    .btn-main {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(11, 79, 58, 0.3);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(11, 79, 58, 0.4);
+    }
+
+    .result-section {
+      display: none;
+      width: 92%;
+      max-width: 850px;
+      margin-top: 25px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    #resultCanvas {
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      background-color: #ffffff;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .btn-action {
+      flex: 1;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .btn-reset {
+      width: 100%;
+      padding: 12px;
+      background-color: #ffffff;
+      color: var(--primary-green);
+      border: 2px solid var(--primary-green);
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-reset:hover { background-color: #f0f7f4; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+  <div class="header-bar">
+    بطاقات تهنئة اليوم الوطني السعودي 96
+  </div>
+
+  <div class="card-container" id="inputForm">
+    <h3>تصميم بطاقة التهنئة</h3>
+    <div class="input-group">
+      <label for="fullName">الاسم الكريم:</label>
+      <input type="text" id="fullName" placeholder="اكتب اسمك هنا..." required>
+    </div>
+    <button class="btn-main" onclick="generateCard()">عرض البطاقة</button>
+  </div>
+
+  <div class="result-section" id="resultSection">
+    <canvas id="resultCanvas" width="1200" height="850"></canvas>
+    
+    <div class="action-buttons">
+      <button class="btn-action" onclick="downloadPDF()">تحميل PDF</button>
+      <button class="btn-action" onclick="downloadImage()">تحميل صورة</button>
+    </div>
+    
+    <button class="btn-reset" onclick="resetForm()">← تصميم بطاقة جديدة</button>
+  </div>
+
+  <script>
+    let generatedImageBase64 = "";
+
+    function loadImage(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = url;
+      });
+    }
+
+    function drawCornerOrnament(ctx, x, y, scaleX, scaleY) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scaleX, scaleY);
+      
+      ctx.strokeStyle = '#c5a059';
+      ctx.lineWidth = 2.5;
+      
+      ctx.beginPath();
+      ctx.moveTo(0, 0); ctx.lineTo(80, 0); ctx.lineTo(80, 15);
+      ctx.lineTo(15, 15); ctx.lineTo(15, 80); ctx.lineTo(0, 80);
+      ctx.closePath();
+      ctx.fillStyle = '#0b4f3a';
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(35, 35, 12, 0, Math.PI * 2);
+      ctx.fillStyle = '#c5a059';
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function drawEmblem(ctx, x, y) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.strokeStyle = '#c5a059';
+      ctx.fillStyle = '#c5a059';
+      ctx.lineWidth = 3;
+
+      ctx.beginPath();
+      ctx.rect(-4, 0, 8, 30);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(-15, -5, 20, 0, Math.PI * 0.5);
+      ctx.arc(15, -5, 20, Math.PI * 0.5, Math.PI);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(-30, 25); ctx.lineTo(30, 45);
+      ctx.moveTo(30, 25); ctx.lineTo(-30, 45);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    async function generateCard() {
+      const name = document.getElementById('fullName').value.trim();
+
+      if (!name) {
+        alert("يرجى كتابة الاسم أولاً");
+        return;
+      }
+
+      try {
+        await document.fonts.ready;
+      } catch(e) {}
+
+      const canvas = document.getElementById('resultCanvas');
+      const ctx = canvas.getContext('2d');
+      const width = canvas.width;
+      const height = canvas.height;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, width, height);
+
+      const bgGrad = ctx.createRadialGradient(width/2, height/2, 100, width/2, height/2, width/2);
+      bgGrad.addColorStop(0, '#ffffff');
+      bgGrad.addColorStop(1, '#f7f9f7');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.strokeStyle = '#0b4f3a';
+      ctx.lineWidth = 14;
+      ctx.strokeRect(25, 25, width - 50, height - 50);
+
+      ctx.strokeStyle = '#c5a059';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(40, 40, width - 80, height - 80);
+
+      ctx.strokeStyle = '#0b4f3a';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(48, 48, width - 96, height - 96);
+
+      drawCornerOrnament(ctx, 52, 52, 1, 1);
+      drawCornerOrnament(ctx, width - 52, 52, -1, 1);
+      drawCornerOrnament(ctx, 52, height - 52, 1, -1);
+      drawCornerOrnament(ctx, width - 52, height - 52, -1, -1);
+
+      // محاولة جلب الصور محلياً مع معالجة حظر الأمان
+      const moeImg = await loadImage('moe-logo.png');
+      const schoolImg = await loadImage('school-logo.png');
+
+      if (schoolImg) {
+        try {
+          ctx.save();
+          ctx.globalAlpha = 0.08;
+          const bgLogoSize = 380;
+          ctx.drawImage(schoolImg, (width - bgLogoSize)/2, (height - bgLogoSize)/2 + 20, bgLogoSize, bgLogoSize);
+          ctx.restore();
+        } catch(e) {}
+      }
+
+      if (moeImg) {
+        try { ctx.drawImage(moeImg, width - 190, 65, 120, 120); } catch(e) {}
+      }
+      if (schoolImg) {
+        try { ctx.drawImage(schoolImg, 70, 65, 120, 120); } catch(e) {}
+      }
+
+      drawEmblem(ctx, width / 2, 70);
+
+      ctx.font = 'bold 20px Cairo, sans-serif';
+      ctx.fillStyle = '#0b4f3a';
+      ctx.textAlign = 'center';
+
+      const headerText = [
+        "المملكة العربية السعودية",
+        "وزارة التعليم",
+        "الإدارة العامة للتعليم بمنطقة مكة المكرمة",
+        "ثانوية الطموح الأهلية بشارع الحج"
+      ];
+
+      let headerY = 135;
+      headerText.forEach(line => {
+        ctx.fillText(line, width / 2, headerY);
+        headerY += 28;
+      });
+
+      ctx.font = 'bold 36px "Aref Ruqaa", serif';
+      ctx.fillStyle = '#c5a059';
+      ctx.fillText("دام عزك يا وطن .. عزنا بطبعنا", width / 2, 285);
+
+      ctx.font = 'bold 50px "Aref Ruqaa", serif';
+      ctx.fillStyle = '#0b4f3a';
+      ctx.fillText("تهنئة بمناسبة اليوم الوطني السعودي 96", width / 2, 360);
+
+      ctx.beginPath();
+      ctx.moveTo(width / 2 - 220, 390);
+      ctx.lineTo(width / 2 + 220, 390);
+      ctx.strokeStyle = '#c5a059';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.font = '700 22px "Amiri", serif';
+      ctx.fillStyle = '#2c3e50';
+      ctx.fillText("دمت ياوطني متفرداً بالحُب والعطاء متميزاً بالأ‌من والرخاء شامخاً بالمجد والعزة", width / 2, 440);
+
+      ctx.font = 'bold 32px "Aref Ruqaa", serif';
+      ctx.fillStyle = '#d92525';
+      ctx.fillText("دامت قيادتنا الرشيدة 🇸🇦", width / 2, 500);
+
+      const nameBoxY = 560;
+      ctx.fillStyle = '#0b4f3a';
+      ctx.beginPath();
+      if (ctx.roundRect) {
+        ctx.roundRect(width / 2 - 280, nameBoxY, 560, 85, 15);
+      } else {
+        ctx.rect(width / 2 - 280, nameBoxY, 560, 85);
+      }
+      ctx.fill();
+
+      ctx.strokeStyle = '#c5a059';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      if (ctx.roundRect) {
+        ctx.roundRect(width / 2 - 274, nameBoxY + 6, 548, 73, 10);
+      } else {
+        ctx.rect(width / 2 - 274, nameBoxY + 6, 548, 73);
+      }
+      ctx.stroke();
+
+      ctx.font = 'bold 34px Cairo, sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(name, width / 2, nameBoxY + 54);
+
+      ctx.font = 'bold 22px Cairo, sans-serif';
+      ctx.fillStyle = '#0b4f3a';
+      ctx.fillText("مع تحيات / محمد حامد - معلم الحاسب 1448 هـ", width / 2, 755);
+
+      try {
+        generatedImageBase64 = canvas.toDataURL('image/png');
+      } catch (err) {
+        console.log("CORS/Local Security bypass applied.");
+      }
+
+      document.getElementById('inputForm').style.display = 'none';
+      document.getElementById('resultSection').style.display = 'block';
+    }
+
+    function downloadImage() {
+      try {
+        const canvas = document.getElementById('resultCanvas');
+        const link = document.createElement('a');
+        link.download = 'national_day_96_card.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch(e) {
+        alert("تنبيه: تحظر متصفحات الحاسب التحميل المباشر للصور محلياً بدون خادم. أطقلها عبر Live Server أو قم برفع الملفات إلى GitHub Pages ليعمل التحميل بكفاءة كاملة.");
+      }
+    }
+
+    function downloadPDF() {
+      try {
+        const { jsPDF } = window.jspdf;
+        const canvas = document.getElementById('resultCanvas');
+        const pdf = new jsPDF({
+          orientation: 'landscape',
+          unit: 'px',
+          format: [canvas.width, canvas.height]
+        });
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, canvas.width, canvas.height);
+        pdf.save('national_day_96_card.pdf');
+      } catch(e) {
+        alert("تنبيه: تحظر متصفحات الحاسب التحميل المباشر للصور محلياً بدون خادم. يرجى استخدام Live Server أو الرفع على GitHub Pages.");
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('fullName').value = '';
+      document.getElementById('inputForm').style.display = 'block';
+      document.getElementById('resultSection').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
